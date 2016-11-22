@@ -1,25 +1,28 @@
 package com.baeldung.jackson.test;
 
+import com.baeldung.jackson.dtos.withEnum.*;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
+
+import java.io.IOException;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.io.IOException;
-
-import com.baeldung.jackson.dtos.withEnum.MyDtoWithEnum;
-import com.baeldung.jackson.dtos.withEnum.TypeEnum;
-import com.baeldung.jackson.dtos.withEnum.TypeEnumSimple;
-import com.baeldung.jackson.dtos.withEnum.TypeEnumWithValue;
-import com.baeldung.jackson.dtos.withEnum.MyDtoWithEnumCustom;
-import com.baeldung.jackson.dtos.withEnum.TypeEnumWithCustomSerializer;
-import org.junit.Test;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class JacksonSerializationEnumsUnitTest {
 
     // tests - simple enum
+
+    @Test
+    public final void agentWithEnumTest() throws JsonParseException, IOException {
+        final ObjectMapper mapper = new ObjectMapper();
+        final String enumAsString = mapper.writeValueAsString(new Agent("a", AgentType.AgentType1));
+
+        System.out.println(enumAsString);
+        //assertThat(enumAsString, containsString("\"name\":\"Type A\""));
+    }
 
     @Test
     public final void whenSerializingASimpleEnum_thenCorrect() throws JsonParseException, IOException {
